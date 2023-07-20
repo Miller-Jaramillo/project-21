@@ -124,8 +124,8 @@ class UsersTable extends Component
         ]);
 
 
-        //$credentialsMail = new UsersCredentials($user, $plainPassword); // Pasar la contraseña generada
-        //Mail::to($user->email)->send($credentialsMail);
+        $credentialsMail = new UsersCredentials($user, $plainPassword); // Pasar la contraseña generada
+        Mail::to($user->email)->send($credentialsMail);
         $role = Role::firstOrCreate(['name' => 'Admin']);
         $user->role_id = $role->id;
         $user->role_name = 'Administrador';
