@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CustomRegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\UsersTable;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,9 @@ use App\Http\Livewire\UsersTable;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register', [CustomRegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [CustomRegisteredUserController::class, 'store']);
 
 Route::middleware([
     'auth:sanctum',
