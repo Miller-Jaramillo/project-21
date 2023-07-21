@@ -97,7 +97,6 @@ class UsersTable extends Component
     public function closeForm()
     {
         $this->showForm = false;
-        $this->reset();
     }
 
     // cmt: Guarda los datos formulario -> agrega un nuevo usuario

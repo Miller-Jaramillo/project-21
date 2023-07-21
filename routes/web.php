@@ -3,6 +3,8 @@
 use App\Http\Controllers\CustomRegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\UsersTable;
+use App\Mail\UsersCredentials;
+use Illuminate\Support\Facades\Mail;
 
 
 /*
@@ -20,6 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::get('/register', [CustomRegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [CustomRegisteredUserController::class, 'store']);
 
@@ -34,4 +38,5 @@ Route::middleware([
 
     Route::get('/users', UsersTable::class)->name('users');  // --> Navegation users - table
 });
+
 
