@@ -7,17 +7,18 @@
     </x-slot>
 
 
-    <div class="py-12">
+    <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 px-4 sm:px-6">
             <div
                 class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-md rounded-md border dark:border-indigo-800  border-indigo-500 ">
                 <div class="grid grid-cols-1 sm:grid-cols-10 flex justify-between  px-4 py-3 sm:px-6">
-                    <div class="col-span-7 flex justify-center">
-                        <div class="grid grid-cols-12 sm:grid-cols-12  ">
+                    @role('admin')
+                        <div class="col-span-7 flex justify-center">
+                            <div class="grid grid-cols-12 sm:grid-cols-12  ">
 
-                            {{-- --> REGISTRAR NUEVO ADMINISTRADOR --}}
-                            {{-- cmt: AQUI ROL --}}
-                            @role('admin')
+                                {{-- --> REGISTRAR NUEVO ADMINISTRADOR --}}
+                                {{-- cmt: AQUI ROL --}}
+
                                 <button wire:click="openForm"
                                     class="bg-white dark:bg-gray-800 dark:sm:bg-gray-800 dark:text-gray-500 text-gray-500
                                     sm:form-input border-none  sm:rounded-md shadow-sm  mr-3 block icon-blue green-hover col-span-1 sm:flex justify-center"
@@ -28,34 +29,34 @@
                                             d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
                                     </svg>
                                 </button>
-                            @endrole
-                            {{-- --> FORMULARIO REGISTRAR NUEVO ADMINISTRADOR --}}
-                            @if ($showForm)
-                                <div id="floating-form"
-                                    class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 ">
-                                    <div
-                                        class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md dark:text-white text-gray-900 border border-indigo-800">
 
-                                        <form wire:submit.prevent="submitForm">
-                                            <div class="text-center">
-                                                <p>Registrar nuevo Administrador</p>
-                                            </div>
+                                {{-- --> FORMULARIO REGISTRAR NUEVO ADMINISTRADOR --}}
+                                @if ($showForm)
+                                    <div id="floating-form"
+                                        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 ">
+                                        <div
+                                            class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md dark:text-white text-gray-900 border border-indigo-800">
 
-                                            <div class="mt-5">
-                                                <x-label for="name" value="{{ __('Name') }}" />
-                                                <x-input id="name" class="block mt-1 w-full " type="text"
-                                                    name="name" wire:model="name" required autofocus
-                                                    autocomplete="name" />
-                                            </div>
+                                            <form wire:submit.prevent="submitForm">
+                                                <div class="text-center">
+                                                    <p>Registrar nuevo Administrador</p>
+                                                </div>
 
-                                            <div class="mt-4">
-                                                <x-label for="email" value="{{ __('Email') }}" />
-                                                <x-input id="email" class="block mt-1 w-full" type="email"
-                                                    name="email" wire:model="email" required
-                                                    autocomplete="username" />
-                                            </div>
+                                                <div class="mt-5">
+                                                    <x-label for="name" value="{{ __('Name') }}" />
+                                                    <x-input id="name" class="block mt-1 w-full " type="text"
+                                                        name="name" wire:model="name" required autofocus
+                                                        autocomplete="name" />
+                                                </div>
 
-                                            {{-- <div class="mt-4">
+                                                <div class="mt-4">
+                                                    <x-label for="email" value="{{ __('Email') }}" />
+                                                    <x-input id="email" class="block mt-1 w-full" type="email"
+                                                        name="email" wire:model="email" required
+                                                        autocomplete="username" />
+                                                </div>
+
+                                                {{-- <div class="mt-4">
                                         <x-label for="password" value="{{ __('Password') }}" />
                                         <x-input id="password" class="block mt-1 w-full" type="password"
                                             name="password" wire:model="password" required
@@ -70,45 +71,73 @@
                                             autocomplete="new-password" />
                                     </div> --}}
 
-                                            <div class="mt-4 flex justify-end">
-                                                <x-button wire:click="closeForm" type="button"
-                                                    class="px-4 py-2 text-sm font-medium    shadow-sm rounded-md dark:hover:bg-red-500  hover:bg-red-600">
-                                                    Cancelar
-                                                </x-button>
-                                                <x-button wire:click="submitForm" class="ml-4 shadow-sm rounded-md dark:hover:bg-red-500  hover:bg-red-600">
-                                                    {{ __('Registrar') }}
-                                                </x-button>
-                                            </div>
-                                        </form>
-
+                                                <div class="mt-4 flex justify-end">
+                                                    <x-button wire:click="closeForm" type="button"
+                                                        class="px-4 py-2 text-sm font-medium shadow-sm rounded-md dark:hover:bg-red-400  hover:bg-red-500">
+                                                        Cancelar
+                                                    </x-button>
+                                                    <x-button wire:click="submitForm"
+                                                        class="ml-4 shadow-sm rounded-md dark:bg-green-500  bg-green-500 dark:hover:bg-green-600  hover:bg-green-600">
+                                                        {{ __('Registrar') }}
+                                                    </x-button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
+                                @endif
 
 
-
-                            <input wire:model="search"
-                                class="form-input rounded-md shadow-sm  block w-full col-span-10 sm:grid-cols-10
+                                <input wire:model="search"
+                                    class="form-input rounded-md shadow-sm  block w-full col-span-10 sm:grid-cols-10
                                 bg-indigo-50 dark:bg-gray-900 text-gray-500 dark:border-indigo-900 border-indigo-200 "
-                                type="text" placeholder="Buscar">
+                                    type="text" placeholder="Buscar">
 
-                            {{-- --> Boton Cancelar busqueda  --}}
-                            @if ($search != '')
-                                <button wire:click="clear"
-                                    class="bg-white dark:bg-gray-800 dark:sm:bg-gray-800 dark:text-gray-500 text-gray-500
+                                {{-- --> Boton Cancelar busqueda  --}}
+                                @if ($search != '')
+                                    <button wire:click="clear"
+                                        class="bg-white dark:bg-gray-800 dark:sm:bg-gray-800 dark:text-gray-500 text-gray-500
                                     sm:form-input border-none
                                     sm:rounded-md shadow-sm ml-3 block icon-red sm:col-span-1 sm:flex justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="w-6 h-6">
-                                        <path fill-rule="evenodd"
-                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            @endif
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="w-6 h-6">
+                                            <path fill-rule="evenodd"
+                                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                @endif
 
+                            </div>
                         </div>
+                    @endrole
+
+
+
+                    @role('spectator|participante')
+                    <div class="col-span-7 flex items-center">
+                        <input wire:model="search"
+                            class="form-input rounded-md shadow-sm  block w-full   flex items-center
+                                bg-indigo-50 dark:bg-gray-900 text-gray-500 dark:border-indigo-900 border-indigo-200 "
+                            type="text" placeholder="Buscar">
+
+                        @if ($search != '')
+                            <button wire:click="clear"
+                                class="bg-white dark:bg-gray-800 dark:sm:bg-gray-800 dark:text-gray-500 text-gray-500
+                                    sm:form-input border-none
+                                    sm:rounded-md shadow-sm ml-1   mr-2 icon-red sm:col-span-1 sm:flex flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        @endif
                     </div>
+                    @endrole
+
+
+
 
                     <div class="col-span-3 ml-1 flex justify-center">
 
@@ -124,7 +153,7 @@
                                     @role('admin')
                                         <option value="administradores">Administradores</option>
                                     @endrole
-                                    <option value="espectadores">Esectadores</option>
+                                    <option value="espectadores">Espectadores</option>
                                     <option value="participantes">Participantes</option>
                                 </select>
                             </div>
@@ -153,7 +182,6 @@
             <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8    px-4 sm:px-6  ">
                 <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-xl sm:rounded-lg rounded-md">
 
-
                     @if ($users->count())
                         <table class="w-full md:w-auto min-w-full ">
                             <thead class="border-b dark:border-indigo-800 border-indigo-500">
@@ -176,20 +204,24 @@
                                     </th>
                                 </tr>
                             </thead>
+
+
                             <tbody class="dark:bg-gray-900 divide-y dark:divide-indigo-950 divide-indigo-50">
                                 @foreach ($users as $user)
                                     <tr>
                                         <td class="px-6 py-4">
                                             <div class="flex items-center">
-                                                <img class="h-12 w-12 rounded-full "
+                                                <img class="h-12 w-12 rounded-full border-2 border-indigo-100 "
                                                     src="{{ $user->profile_photo_url }}" alt="{{ $user->email }}">
                                                 <div class="ml-4">
                                                     <p
                                                         class="text-sm font-semibold leading-6 dark:text-gray-100  text-gray-900">
                                                         {{ $user->name }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </td>
+
                                         <td class="hidden sm:table-cell px-6 py-4 text-center">
                                             <p class="text-sm leading-6 dark:text-gray-100  text-gray-900">
                                                 {{ $user->email }}</p>
@@ -206,11 +238,12 @@
                                         </td>
 
                                         {{-- --> ICONOS - ACCIONES --}}
-                                        @if ($user->id !== Auth::id())
-                                            <td class="px-6 py-4 text-center dark:bg-gray-900 bg-white ">
-                                                <!-- Iconos de ver, editar y eliminar -->
-                                                <div class="flex justify-center">
 
+                                        <td class="px-6 py-4 text-center dark:bg-gray-900 bg-white ">
+                                            <!-- Iconos de ver, editar y eliminar -->
+                                            <div class="flex justify-center">
+
+                                                @if ($user->id !== Auth::id())
                                                     {{-- -->Ver User --}}
                                                     <a href="#" class="icon-blue green-hover"
                                                         wire:click="showUser({{ $user->id }})">
@@ -240,10 +273,39 @@
                                                             </a>
                                                         @endif
                                                     @endrole
+                                                @else
+                                                    @role('admin')
+                                                        <x-button>
+                                                            Invitar
+                                                        </x-button>
+                                                    @endrole
+                                                    @role('spectator')
+                                                        <x-button wire:click="openFormParticipate"
+                                                            class="dark:bg-red-500 bg-red-500 hover:bg-blue-400 dark:hover:bg-blue-400 ">
+                                                            participar
+                                                        </x-button>
+                                                    @endrole
 
-                                                </div>
-                                            </td>
-                                        @endif
+                                                    @role('participante')
+
+
+
+                                                        <a href="{{ route('propuesta-nueva') }}">
+
+                                                            <x-button
+                                                            class="dark:bg-green-500 bg-green-500 hover:bg-green-400 dark:hover:bg-green-400 ">
+                                                            Enviar Propuesta
+                                                        </x-button>
+                                                        </a>
+                                                    @endrole
+                                                @endif
+
+                                            </div>
+
+
+
+                                        </td>
+
                                     </tr>
                                 @endforeach
                                 {{-- --> ALERT DIALOG - Eliminar User --}}
@@ -251,25 +313,23 @@
                                     <div
                                         class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
                                         <div
-                                            class="bg-white dark:bg-gray-800 dark:text-gray-100 text-gray-900 p-6 rounded-lg shadow-xl border-2 border-indigo-500 dark:border-indigo-800">
+                                            class="bg-white dark:bg-gray-800 dark:text-white text-gray-900 p-6 rounded-lg shadow-xl border-2 border-blue-500">
                                             <p>¿Estás seguro de eliminar a {{ $name }}?</p>
-                                            <div class="mt-4 flex justify-center">
-                                                <x-button wire:click="cancelUserDeletion"
-                                                    class="px-4 py-2 mr-4 text-sm   font-medium   shadow-sm rounded-md dark:hover:bg-red-500  hover:bg-red-600">
-                                                    Cancelar
-                                                </x-button>
-                                                <x-button wire:click="deleteUser({{ $confirmingUserDeletion }})"
-                                                    class="px-4 py-2 text-sm    font-medium shadow-sm rounded-md dark:hover:bg-red-500  hover:bg-red-600">
+                                            <div class="mt-4 flex justify-end">
+                                                <button wire:click="deleteUser({{ $confirmingUserDeletion }})"
+                                                    class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
                                                     Sí, eliminar
-                                                </x-button>
+                                                </button>
 
-
+                                                <button wire:click="cancelUserDeletion"
+                                                    class="px-4 py-2 ml-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                                                    Cancelar
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 @endif
                                 <div>
-
                                     @if ($message)
                                         <div x-data="{ show: @entangle('message') }" x-show="show" x-init="setTimeout(() => { show = false; }, 3000)"
                                             class="fixed inset-0 flex items-center justify-center">
@@ -281,60 +341,6 @@
                                     @endif
                                 </div>
 
-
-                                <!-- Información del usuario flotante -->
-
-                                {{-- --> Vista Flotante - Ver User --}}
-                                @if ($showUserInfo)
-                                    <div
-                                        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
-
-                                        <div class="bg-white dark:bg-gray-800 dark:text-gray-100 text-gray-900 p-6 rounded-lg shadow-xl border-2 border-indigo-500 dark:border-indigo-800">
-
-
-                                            <div class="flex justify-center">
-                                                <button wire:click="closeUserInfo"
-                                                    class="shadow-sm ml-3 block icon-red  ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                      </svg>
-
-                                                </button>
-                                            </div>
-
-
-
-                                            <h2 class="text-lg font-semibold mb-4 text-center"> <b>Información del
-                                                    Usuario</b></h2>
-                                            <div class="flex items-center justify-center ">
-                                                <img class="h-24 w-24 rounded-full bg-gray-50"
-                                                    src="{{ $userInfo->profile_photo_url }}"
-                                                    alt="{{ $user->name }}">
-                                            </div>
-
-                                            <div class="mt-4">
-                                                @if ($userInfo->role_name == 'Administrador' || $userInfo->role_name == 'Super Admin')
-                                                    <p>Nombre: <b> {{ $userInfo->name }} </b></p>
-                                                    <p>Correo: {{ $userInfo->email }}</p>
-                                                    <p>Rol: {{ $userInfo->role_name }}</p>
-                                                @else
-                                                    <p>Nombre: <b> {{ $userInfo->name }} </b></p>
-                                                    <p>Correo: {{ $userInfo->email }}</p>
-                                                    <p>Rol: {{ $userInfo->role_name }}</p>
-                                                    <p>Otros datos: {{ $userInfo->additionalData }}</p>
-                                                @endif
-
-                                            </div>
-
-                                            <div class="flex justify-center">
-                                                @if ($userInfo->role_name == 'Espectador')
-                                                    <button class="px-4 py-2 mt-4 shadow-sm rounded-md dark:hover:bg-red-500  hover:bg-red-600"
-                                                        wire:click="closeUserInfo">Ver Prouestas</button>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
                             </tbody>
                         </table>
 
@@ -358,9 +364,135 @@
             </div>
         </div>
 
+
+
+        <!-- Información del usuario flotante -->
+        <div class="flex items-center">
+             {{-- !! MOSTRAR INFORMACION --}}
+            @if ($showUserInfo)
+                <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
+
+                    <div
+                        class="bg-white dark:bg-gray-800 dark:text-gray-100 text-gray-900 p-6 rounded-lg shadow-xl border-2 border-indigo-500 dark:border-indigo-800">
+                        <div class="flex justify-center">
+                            <button wire:click="closeUserInfo" class="shadow-sm ml-3 block icon-red  ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+
+                            </button>
+                        </div>
+
+                        <h2 class="text-lg font-semibold mb-4 text-center"> <b>Información del
+                                Usuario</b></h2>
+                        <div class="flex items-center justify-center ">
+                            <img class="h-24 w-24 rounded-full bg-gray-50 border-2 border-indigo-200" src="{{ $userInfo->profile_photo_url }}"
+                                alt="{{ $user->name }}">
+                        </div>
+
+                        <div class="mt-4">
+                            @if ($userInfo->role_name == 'Administrador' || $userInfo->role_name == 'Super Admin')
+                                <p>Nombre: <b> {{ $userInfo->name }} </b></p>
+                                <p>Correo: {{ $userInfo->email }}</p>
+                                <p>Rol: {{ $userInfo->role_name }}</p>
+                            @else
+                                <p>Nombre: <b> {{ $userInfo->name }} </b></p>
+                                <p>Correo: {{ $userInfo->email }}</p>
+                                <p>Rol: {{ $userInfo->role_name }}</p>
+                                <p>Otros datos: {{ $userInfo->additionalData }}</p>
+                            @endif
+                        </div>
+
+                        <div class="flex justify-center">
+                            @if ($userInfo->role_name == 'Participante')
+                                <button class="bg-red-500 text-white px-4 py-2 rounded mt-4"
+                                    wire:click="closeUserInfo">Ver Prouestas</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+
+         <!--  Formulario Particiante  -->
+        <div class="flex items-center">
+            {{-- !! FORMULARIO ROL PARTICIPANTE --}}
+            @if ($showFormParticipate)
+                <div id="floating-form"
+                    class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 ">
+                    <div
+                        class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md dark:text-white text-gray-900 border border-indigo-800">
+
+                        <form wire:submit.prevent="submitFormParticipate">
+                            <div class="text-center">
+                                <p class="text-xl"><b>PARTICIPA EN EL CARNAVAL</b></p>
+                                <p class="text-sm">Completa tus datos para participar en el carnaval de Negros y
+                                    Blancos.
+                                    <br>Al finalizar, podras enviarnos tu propuesta.
+                                </p>
+                                <p class="text-md">
+                                    <b>¡No te quedes fuera! 👨‍🎤👩‍🎤🤹‍♂️✨</b>
+                                </p>
+                            </div>
+
+                            <div class="mt-5">
+                                <x-label for="name" value="{{ __('Nombre completo') }}" />
+                                <x-input id="name" class="block mt-1 w-full " type="text" name="name"
+                                    wire:model="name" required autofocus autocomplete="name" />
+                            </div>
+
+                            <div class="mt-4">
+                                <x-label for="lastname" value="{{ __('Apellido completo') }}" />
+                                <x-input id="lastname" class="block mt-1 w-full" type="text" name="lastname"
+                                    wire:model="lastname" required autocomplete="lastname" />
+                            </div>
+
+
+                            <div class="mt-4">
+                                <x-label for="cellphone" value="{{ __('Celular') }}" />
+                                <x-input id="cellphone" class="block mt-1 w-full" type="text" name="cellphone"
+                                    wire:model="cellphone" required autofocus autocomplete="name"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" />
+                            </div>
+
+                            <div class="mt-4">
+                                <x-label for="identification_number" value="{{ __('Numero de Cedula') }}" />
+                                <x-input id="identification_number" class="block mt-1 w-full" type="text"
+                                    name="identification_number" wire:model="identification_number" required autofocus
+                                    autocomplete="identification_number"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" />
+                            </div>
+
+
+                            <div class="mt-4 flex justify-end">
+                                <x-button wire:click="closeForm" type="button"
+                                    class="px-4 py-2 text-sm font-medium shadow-sm rounded-md dark:hover:bg-red-400  hover:bg-red-500">
+                                    Cancelar
+                                </x-button>
+                                <x-button wire:click="submitFormParticipate"
+                                    class="ml-4 shadow-sm rounded-md dark:bg-green-500  bg-green-500 dark:hover:bg-green-600  hover:bg-green-600">
+                                    {{ __('particiar') }}
+                                </x-button>
+                        </form>
+                    </div>
+                </div>
+            @endif
+        </div>
+
+
+
+
+
+
     </div>
 
 </div>
+
+
+
 
 
 <style>

@@ -19,6 +19,12 @@
                     <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                         {{ __('Usuarios') }}
                     </x-nav-link>
+
+                    @role('participante')
+                    <x-nav-link href="{{ route('propuestas-participante') }}" :active="request()->routeIs('propuestas-participante')">
+                        {{ __('Propuestas') }}
+                    </x-nav-link>
+                    @endrole
                 </div>
             </div>
 

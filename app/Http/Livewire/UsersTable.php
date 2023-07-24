@@ -17,6 +17,7 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use App\Mail\UsersCredentials;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class UsersTable extends Component
 {
@@ -27,14 +28,19 @@ class UsersTable extends Component
     public $selectedRole = 'todos';
     public $selectedOption = '';
     public $name;
+    public $lastname;
+    public $cellphone;
     public $email;
+    public $identification_number;
     public $password;
     public $showForm;
+    public $showFormParticipate;
     public $confirmingUserDeletion = false;
     public $showUserInfo = false;
     public $userInfo;
     public $message = '';
-    public $selectedStyle = 'estiloDark';
+    public $selectedStyle = '';
+    public $participate;
 
     // cmt: Se seleciona el usuario para filtrar la busqueda por rol
     public function updatedSelectedOption($value)
@@ -97,6 +103,8 @@ class UsersTable extends Component
     public function closeForm()
     {
         $this->showForm = false;
+        $this->showFormParticipate = false;
+        $this->reset();
     }
 
     // cmt: Guarda los datos formulario -> agrega un nuevo usuario
@@ -114,7 +122,6 @@ class UsersTable extends Component
         $plainPassword = Str::random(10); // Generar contraseña en texto plano
         $encryptedPassword = Hash::make($plainPassword); // Encriptar la contraseña
 
-
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
@@ -122,10 +129,9 @@ class UsersTable extends Component
             //'cellphone' => $validatedData['cellphone'],
         ]);
 
-
         $credentialsMail = new UsersCredentials($user, $plainPassword); // Pasar la contraseña generada
         Mail::to($user->email)->send($credentialsMail);
-        $role = Role::firstOrCreate(['name' => 'Admin']);
+        $role = Role::firstOrCreate(['name' => 'admin']);
         $user->role_id = $role->id;
         $user->role_name = 'Administrador';
         $user->created_by = Auth::user()->id;
@@ -133,12 +139,63 @@ class UsersTable extends Component
         $user->assignRole($role);
 
         // Envío del correo electrónico con las credenciales
-
+        $this->reset();
+        $this->closeForm();
         $user->save();
 
         // -> Después de guardar, puedes cerrar la vista flotante
-        $this->reset();
+    }
+
+    // cmt: Abre el formulario para crear un Participante
+    public function openFormParticipate()
+    {
+        $this->showFormParticipate = true;
+    }
+
+
+    public function submitFormParticipate()
+    {
+        // Lógica para procesar el formulario y guardar el participante en la base de datos
+
+        $validatedData = $this->validate([
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'cellphone' => 'required|string|max:255',
+            'identification_number' => 'required|string|max:255',
+        ]);
+
+        $user = auth()->user();
+
+        // Concatenar el nombre y el apellido en el campo 'name'
+        $user->name = $validatedData['name'] . ' ' . $validatedData['lastname'];
+
+        // Actualizar el resto de los campos con los datos proporcionados en el formulario
+        $user->cellphone = $validatedData['cellphone'];
+        $user->identification_number = $validatedData['identification_number'];
+
+        $role = Role::where('name', 'spectator')->first();
+
+        // Si el usuario tiene el rol, procedemos a quitarlo
+        if ($user->hasRole($role)) {
+            $user->removeRole($role);
+            // También puedes usar la función removeRoleByName si tienes el nombre del rol
+            // $user->removeRoleByName('rol_a_quitar');
+
+            // Guardamos los cambios en la base de datos
+            $user->save();
+
+            $rolep = Role::firstOrCreate(['name' => 'participante']);
+
+            $user->role_id = $rolep->id;
+            $user->role_name = 'Participante';
+            $user->assignRole($rolep);
+            $user->save();
+            $this->closeForm();
+        }
+
         $this->closeForm();
+
+        // Después de guardar, puedes cerrar la vista flotante
     }
 
     // cmt: Se confirma la desicion de eliminar el usuario
@@ -195,4 +252,11 @@ class UsersTable extends Component
         $this->showUserInfo = false;
         $this->userInfo = null;
     }
+
+    public function redirectToPropuestas()
+    {
+        // Redirige a la vista "Propuestas" con el parámetro para mostrar el formulario
+        return Redirect::to('/propuestas-participante?showForm=true');
+    }
+
 }
